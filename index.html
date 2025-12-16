@@ -79,11 +79,11 @@
       width: 90%;
       max-width: 1200px;
       height: 80vh;
-      margin-top: 0;
+      margin-top: 40px;
       animation: fadeIn 2s ease-out;
       border: 1px solid #ccc;
       border-radius: 40px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       overflow: hidden;
       position: relative;
       z-index: 2;
@@ -129,6 +129,7 @@
         width: 95%;
       }
     }
+
   </style>
 </head>
 
@@ -140,32 +141,30 @@
   <!-- ENCABEZADO -->
   <div class="header">
     <div class="logo-carousel">
-      <img src="alen.png">
-      <img src="aramluz.png">
-      <img src="arcor.png">
-      <img src="bic.png">
-      <img src="canels.png">
-      <img src="clorox.png">
-      <img src="colgate.png">
-      <img src="conagra.png">
-      <img src="electrolit.png">
-      <img src="energizer.png">
-      <img src="heinz.png">
-      <img src="kellogss.png">
-      <img src="lamorena.png">
-      <img src="mondelez.jpg">
-      <img src="unilever.png">
+      <img src="alen.png" alt="Logo Alen">
+      <img src="aramluz.png" alt="Logo Aramluz">
+      <img src="arcor.png" alt="Logo Arcor">
+      <img src="bic.png" alt="Logo Bic">
+      <img src="canels.png" alt="Logo Canels">
+      <img src="clorox.png" alt="Logo Clorox">
+      <img src="colgate.png" alt="Logo Colgate">
+      <img src="conagra.png" alt="Logo Conagra">
+      <img src="electrolit.png" alt="Logo Electrolit">
+      <img src="energizer.png" alt="Logo Energizer">
+      <img src="heinz.png" alt="Logo Heinz">
+      <img src="kellogss.png" alt="Logo Kelloggs">
+      <img src="lamorena.png" alt="Logo La Morena">
+      <img src="mondelez.jpg" alt="Logo Mondelez">
+      <img src="unilever.png" alt="Logo Unilever">
     </div>
     <div class="title">Calendario de Citas</div>
   </div>
 
-  <!-- POWER BI -->
+  <!-- REPORTE POWER BI -->
   <div class="report-container">
-    <iframe
-      title="Dashboard Temporalidades"
-      src="https://app.powerbi.com/view?r=eyJrIjoiZTYzZWFmYmYtMTQ2Ny00ZDY1LWFiZmYtNWJjYjFjNzhjN2U5IiwidCI6ImFhODFiNGU2LTllMTMtNDUxNC1iNzkwLTY1YWUyNDZlZjExZiIsImMiOjR9"
-      allowfullscreen="true">
-    </iframe>
+    <iframe title="Calendario" width="600" height="373.5" 
+      src="https://app.powerbi.com/view?r=eyJrIjoiYTc1N2Y4MTgtOWQ5ZS00NTIwLWI4NjgtYWJmNWY1ZjJkYmRlIiwidCI6ImFhODFiNGU2LTllMTMtNDUxNC1iNzkwLTY1YWUyNDZlZjExZiIsImMiOjR9" 
+      frameborder="0" allowFullScreen="true"></iframe>
   </div>
 
   <!-- FOOTER -->
@@ -174,7 +173,7 @@
     <p>Todos los derechos reservados 2008-2028</p>
   </div>
 
-  <!-- ===== SCRIPT CANVAS ===== -->
+  <!-- ===== SCRIPT CANVAS DINÁMICO ===== -->
   <script>
     const canvas = document.getElementById("bg-canvas");
     const ctx = canvas.getContext("2d");
@@ -187,7 +186,7 @@
     resize();
 
     const particles = [];
-    const COUNT = 110;
+    const COUNT = 100;
     const MAX_DIST = 130;
 
     for (let i = 0; i < COUNT; i++) {
@@ -213,23 +212,23 @@
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(0,90,200,0.8)";
+        ctx.fillStyle = "rgba(0,90,220,0.8)";
         ctx.fill();
 
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-
           if (dist < MAX_DIST) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(0,90,200,${1 - dist / MAX_DIST})`;
+            ctx.strokeStyle = `rgba(0,90,220,${1 - dist / MAX_DIST})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }
       }
+
       requestAnimationFrame(animate);
     }
 
