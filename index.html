@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporte Power BI</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 50vh;
+      overflow-x: hidden;
+    }
+
+    /* ===== CANVAS FONDO ===== */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      width: 50%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 0;
+      color: #333;
+      animation: slideIn 0.2s ease-out;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(0); }
+    }
+
+    .logo-carousel {
+      display: flex;
+      animation: scroll 50s linear infinite;
+    }
+
+    .logo-carousel img {
+      width: 35px;
+      margin-right: 100px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-carousel img:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-100%); }
+    }
+
+    .title {
+      font-size: 0;
+      font-weight: bold;
+      font-family: 'Arial Narrow', Arial, sans-serif;
+      letter-spacing: 1px;
+    }
+
+    /* ===== REPORTE ===== */
+    .report-container {
+      width: 90%;
+      max-width: 1200px;
+      height: 80vh;
+      margin-top: 0;
+      animation: fadeIn 2s ease-out;
+      border: 1px solid #ccc;
+      border-radius: 40px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+      background: #fff;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      margin-top: 0;
+      color: #555;
+      font-size: 11px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer a {
+      color: #0073e6;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+      color: #ff6347;
+    }
+
+    @media (max-width: 768px) {
+      .report-container {
+        height: 50vh;
+      }
+      .header {
+        width: 95%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- CANVAS DE FONDO -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- ENCABEZADO -->
+  <div class="header">
+    <div class="logo-carousel">
+      <img src="alen.png">
+      <img src="aramluz.png">
+      <img src="arcor.png">
+      <img src="bic.png">
+      <img src="canels.png">
+      <img src="clorox.png">
+      <img src="colgate.png">
+      <img src="conagra.png">
+      <img src="electrolit.png">
+      <img src="energizer.png">
+      <img src="heinz.png">
+      <img src="kellogss.png">
+      <img src="lamorena.png">
+      <img src="mondelez.jpg">
+      <img src="unilever.png">
+    </div>
+    <div class="title">Calendario de Citas</div>
+  </div>
+
+  <!-- POWER BI -->
+  <div class="report-container">
+    <iframe
+      title="Dashboard Temporalidades"
+      src="https://app.powerbi.com/view?r=eyJrIjoiZTYzZWFmYmYtMTQ2Ny00ZDY1LWFiZmYtNWJjYjFjNzhjN2U5IiwidCI6ImFhODFiNGU2LTllMTMtNDUxNC1iNzkwLTY1YWUyNDZlZjExZiIsImMiOjR9"
+      allowfullscreen="true">
+    </iframe>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>Desarrollado por <a href="https://www.somoseltoro.com" target="_blank">Distribuidora el Toro</a></p>
+    <p>Todos los derechos reservados 2008-2028</p>
+  </div>
+
+  <!-- ===== SCRIPT CANVAS ===== -->
+  <script>
+    const canvas = document.getElementById("bg-canvas");
+    const ctx = canvas.getContext("2d");
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    const particles = [];
+    const COUNT = 110;
+    const MAX_DIST = 130;
+
+    for (let i = 0; i < COUNT; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8,
+        r: Math.random() * 2 + 1
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(0,90,200,0.8)";
+        ctx.fill();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+
+          if (dist < MAX_DIST) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(0,90,200,${1 - dist / MAX_DIST})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+
+</body>
+</html>
